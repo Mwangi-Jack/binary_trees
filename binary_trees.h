@@ -2,7 +2,7 @@
 #define __BINARY_TREES_H__
 
 /**
- * struct binary_trees_s - Binary tree node
+ * struct binary_tree_s - Binary tree node
  *
  * @n: Integer stored in the node
  * @parent: Pointer to the parent node
@@ -25,4 +25,8 @@ void binary_tree_print(const binary_tree_t *tree);
 binary_tree_t *binary_tree_node(binary_tree_t *parent, int value);
 binary_tree_t *binary_tree_insert_left(binary_tree_t *parent, int value);
 binary_tree_t *binary_tree_insert_right(binary_tree_t *parent, int value);
+void binary_tree_delete(binary_tree_t *tree);
+int binary_tree_is_leaf(const binary_tree_t *node);
+int binary_tree_is_root(const binary_tree_t *node);
+void binary_tree_preorder(const binary_tree_t *tree, void (*funct)(int));
 #endif
