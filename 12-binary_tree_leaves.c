@@ -1,4 +1,5 @@
 #include <stddef.h>
+#include <stdio.h>
 #include "binary_trees.h"
 
 /**
@@ -15,19 +16,15 @@
 
 size_t binary_tree_leaves(const binary_tree_t *tree)
 {
-	size_t leaves = 0;
+	size_t leaf = 0, r_leaf = 0, l_leaf = 0;
 
 	if (tree == NULL)
 		return (0);
 
-	if (tree->left == NULL && tree->right == NULL)
-		return (1);
 
-	if (tree->left != NULL)
-		leaves += 1;
+	l_leaf = binary_tree_leaves(tree->left);
+	r_leaf = binary_tree_leaves(tree->right);
 
-	if (tree->right != NULL)
-		leaves += 1;
-
-	return (leaves);
+	leaf = l_leaf + r_leaf;
+	return ((!l_leaf && !r_leaf) ? leaf + 1 : leaf);
 }
