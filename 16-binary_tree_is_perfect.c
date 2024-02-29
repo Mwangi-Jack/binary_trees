@@ -1,37 +1,31 @@
 #include <stddef.h>
-#include <stdio.h>
 #include "binary_trees.h"
 
-
 /**
- * binary_is_full - check if binary tree is full
+ * is_perfect - function to check binary tree perfection
  *
- * @tree: Pointer to the root node of the tree to check
+ * @tree: pointer to binary tree node to check
  *
- * Return: returns an integer value true (1)  or false (0)
+ * Return: returns an integer value true (1) false (0)
 */
 
-int binary_is_full(const binary_tree_t *tree)
+int is_perfect(const binary_tree_t *tree)
 {
-	if (tree == NULL)
-		return (0);
+	int left = 0, right = 0;
 
 	if (tree->left && tree->right)
 	{
-		int left = binary_is_full(tree->left);
-		int right = binary_is_full(tree->right);
+		left = 1 + is_perfect(tree->left);
+		right = 1 + is_perfect(tree->right);
 
-		if (left == 0 || right == 0)
-		{
-			return (0);
-		}
+		if (left == right && left != 0 && right != 0)
+			return (left);
 
-		return (1);
+		return (0);
 	} else if (!tree->left && !tree->right)
 	{
 		return (1);
 	}
-
 	return (0);
 }
 /**
@@ -48,18 +42,13 @@ int binary_is_full(const binary_tree_t *tree)
 
 int binary_tree_is_perfect(const binary_tree_t *tree)
 {
+	int res = 0;
+
 	if (tree == NULL)
 		return (0);
 
-	int full = binary_is_full(tree);
+	res = is_perfect(tree);
 
-	if (full == 0)
-		return (0);
+	return (res != 0 ? 1 : 0);
 
-	int left = tree->parent ? binary_tree_is_perfect(tree->left) : 0;
-	int right = tree->parent ? binary_tree_is_perfect(tree->right) : 0;
-
-	printf("left: %d -> rightg: %d\n", left, right);
-
-	return ((left < right) ? left : right);
 }
